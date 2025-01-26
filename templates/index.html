@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Learning Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Deep Learning Project</h1>
+            <h2>By Jamal and Arham</h2>
+        </header>
+        <section class="upload-section">
+            <h2>Upload Frames Directory</h2>
+            <form action="/" method="post" enctype="multipart/form-data">
+                <label class="file-input-label">
+                    <input type="file" name="file" required>
+                    <span>Choose a File</span>
+                </label>
+                <button type="submit" class="btn upload-btn">Upload</button>
+            </form>
+        </section>
+
+        {% if uploaded_file %}
+        <section class="action-section">
+            <h2>Run Models</h2>
+            <div class="model-buttons">
+                <form action="{{ url_for('run_model', model_type='convlstm') }}" method="post">
+                    <button type="submit" class="btn model-btn">Run ConvLSTM</button>
+                </form>
+                <form action="{{ url_for('run_model', model_type='predrnn') }}" method="post">
+                    <button type="submit" class="btn model-btn">Run PredRNN</button>
+                </form>
+                <form action="{{ url_for('run_model', model_type='transformer') }}" method="post">
+                    <button type="submit" class="btn model-btn">Run Transformer</button>
+                </form>
+            </div>
+        </section>
+        <section class="view-section">
+            <h2>View Video Results</h2>
+            <ul class="video-links">
+                <li><a href="{{ url_for('view_video', model_type='convlstm') }}" class="link">ConvLSTM Video</a></li>
+                <li><a href="{{ url_for('view_video', model_type='predrnn') }}" class="link">PredRNN Video</a></li>
+                <li><a href="{{ url_for('view_video', model_type='transformer') }}" class="link">Transformer Video</a></li>
+            </ul>
+        </section>
+        {% endif %}
+    </div>
+</body>
+</html>
